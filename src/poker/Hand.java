@@ -567,8 +567,33 @@ public class Hand {
 		
 	}
 	
-	//public static Hand PickBestHand(ArrayList<Hand> Hands) throws exHand        need to make the exception and do this method
-	
+	public static Hand PickBestHand(ArrayList<Hand> Hands) throws tiedHandsException{
+		Hand winner = null;
+		boolean tie = false;
+		ArrayList<Hand> tiedHands = null;
+		for (int n = 0; n<Hands.size(); n++){
+			if (Hands.get(n).HandStrength > winner.HandStrength){
+				winner = Hands.get(n);
+				tie = false;
+			}else if (Hands.get(n).HandStrength < winner.HandStrength){
+				winner = Hands.get(n);
+				tie = false;
+			}else{
+				//tie
+				tiedHands.clear();
+				tiedHands.add(Hands.get(n));
+				tiedHands.add(winner);
+				tie = true;
+			}
+		}
+		if (tie == true){
+			throw new tiedHandsException();
+		}else{
+
+			return winner;
+		}
+		
+	}
 
 	/**
 	 * Custom sort to figure the best hand in an array of hands
